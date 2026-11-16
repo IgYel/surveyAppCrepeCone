@@ -1,16 +1,13 @@
 import { useState, useEffect } from "react";
-import Logo from "./components/svgs.jsx";
 import "./App.css";
 import bgdeco from "./assets/bgdeco.png";
+import logo from "./assets/Crepe Logo.png";
 
-import ttIcon from "./components/tt.svg";
-import instaIcon from "./components/insta.svg";
-import streetIcon from "./components/street.svg";
-import friendsIcon from "./components/friends.svg";
-import mapsIcon from "./components/maps.svg";
-
-import charm1 from "./assets/pragCharm.png";
-import charm2 from "./assets/bierCharm.png";
+import ttIcon from "./components/tt.png";
+import instaIcon from "./components/insta.png";
+import streetIcon from "./components/street.png";
+import friendsIcon from "./components/friends.png";
+import mapsIcon from "./components/maps.png";
 
 function App() {
   const [selectedAnswer, setSelectedAnswer] = useState(null);
@@ -20,7 +17,7 @@ function App() {
   const [shop, setShop] = useState(null);
 
   const GOOGLE_SCRIPT_URL =
-    "https://script.google.com/macros/s/AKfycbx5_9Dm6niqvpPvbWOoz1vEg-Mb2olke-x_KF8Vj-uYQe8DpYZ4oH5pHwuSM8Mxw1VZ/exec";
+    "https://script.google.com/macros/s/AKfycbx6UnMrJz901yb1_qspeX8DGbECfD2iY2FiAgP9cU8g54q3alxofre-EJxonORAibvc/exec";
 
   const answers = [
     {
@@ -45,18 +42,6 @@ function App() {
     },
   ];
 
-  useEffect(() => {
-    const savedShop = localStorage.getItem("surveyShop");
-
-    if (savedShop) {
-      setShop(savedShop);
-    }
-  }, []);
-
-  function chooseShop(shopName) {
-    localStorage.setItem("surveyShop", shopName);
-    setShop(shopName);
-  }
   async function handleAnswer(answer) {
     if (sending) return;
 
@@ -64,14 +49,14 @@ function App() {
     setSelectedAnswer(answer);
 
     fetch(GOOGLE_SCRIPT_URL, {
-      method: "POST",
-      body: JSON.stringify({
-        answer,
-        shop,
-      }),
-    }).catch((error) => {
-      console.error("Error sending answer:", error);
-    });
+  method: "POST",
+  mode: "no-cors",
+  body: JSON.stringify({
+    answer,
+  }),
+}).catch((error) => {
+  console.error("Error sending answer:", error);
+});
 
     await new Promise((resolve) => setTimeout(resolve, 650));
 
@@ -84,32 +69,6 @@ function App() {
     }, 2000);
   }
 
-  if (!shop) {
-    return (
-      <main className="shopSetup">
-        <div className="shopSetupCard">
-          <Logo className="setupLogo" />
-
-          <p className="setupLabel">STAFF SETUP</p>
-
-          <h1>Hi employee! which shop are we in?</h1>
-
-          <div className="shopButtons">
-            <button onClick={() => chooseShop("Vaclavske namesti")}>
-              Vaclavske namesti
-            </button>
-
-            <button onClick={() => chooseShop("Charm Bar Havelska")}>
-              Charm Bar Havelska
-            </button>
-
-            <button onClick={() => chooseShop("Crystal")}>Crystal</button>
-          </div>
-        </div>
-      </main>
-    );
-  }
-
   return (
     <main className="app">
       <section className="imageSide">
@@ -117,10 +76,7 @@ function App() {
       </section>
 
       <section className="contentSide">
-        <img src={charm1} className="decoCharm decoCharmOne" alt="" />
-
-        <img src={charm2} className="decoCharm decoCharmTwo" alt="" />
-        <Logo className="mainLogo" />
+        <img className="mainLogo" src={logo} alt="Crepe Logo"/>
         {!submitted ? (
           <div className="survey">
             <h1>Where did you find us?</h1>

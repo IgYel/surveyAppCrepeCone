@@ -1,5 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda+SC:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Libre+Bodoni:ital,wght@0,400..700;1,400..700&display=swap');
 
+
+/* =========================================================
+   CREPECONE PALETTE
+
+   Main pink:   #e98a9a
+   Chocolate:   #33241f
+   Cream:       #f5efe4
+   Sage:        #b8c99a
+
+   Additional pink shades are derived from #e98a9a.
+========================================================= */
+
+
+/* =========================================================
+   BASE
+========================================================= */
+
 * {
   box-sizing: border-box;
   font-family: "Libre Bodoni", serif;
@@ -12,16 +29,24 @@ body,
   width: 100%;
   min-height: 100%;
   overflow: hidden;
-
 }
 
 body {
   margin: 0;
+
+  background: #f6d9df;
+
+  color: #33241f;
 }
 
 button {
   font: inherit;
 }
+
+
+/* =========================================================
+   MAIN LAYOUT
+========================================================= */
 
 .app {
   min-height: 100vh;
@@ -30,29 +55,49 @@ button {
   display: grid;
   grid-template-columns: 35% 65%;
 
-  background: #f7ecdd;
+  /*
+    Pink is now the actual environment,
+    rather than just an accent.
+  */
+  background:
+    linear-gradient(
+      135deg,
+      #f9e8eb 0%,
+      #f7dfe4 35%,
+      #f5d5dc 70%,
+      #f3cdd5 100%
+    );
+
+  position: relative;
+  overflow: hidden;
 }
 
-/* LEFT SIDE */
+
+/* =========================================================
+   LEFT IMAGE SIDE
+========================================================= */
 
 .imageSide {
   width: 100%;
   min-height: 100vh;
 
-  background: #f7ecdd;
+  position: relative;
+  background: transparent;
 
-  overflow: hidden;
+  z-index: 1;
 }
 
 .imageSide img {
-  width: 100%;
+  width: auto;
+  height: 100vh;
 
-  object-fit: contain;
-  object-position: center;
   display: block;
 }
 
-/* RIGHT SIDE */
+
+/* =========================================================
+   RIGHT CONTENT SIDE
+========================================================= */
 
 .contentSide {
   width: 100%;
@@ -60,34 +105,97 @@ button {
 
   display: flex;
   flex-direction: column;
+
   align-items: center;
   justify-content: center;
+
   position: relative;
 
-  padding: 0px 50px 70px 50px;
+  padding: 0 50px 70px;
+
+  background: transparent;
+
+  overflow: visible;
 }
 
-/* LOGO */
 
-.mainLogo {
-  width: min(360px, 55%);
-  height: auto;
+/*
+  Soft cream light behind the central content.
 
-  margin-bottom: 12vh;
-}
+  Because the background itself is pink,
+  this gives us separation without making
+  the page beige again.
+*/
 
-.decoCharm {
+.contentSide::before {
+  content: "";
+
   position: absolute;
-  object-fit: contain;
+
+  width: 760px;
+  height: 760px;
+
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -45%);
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(245, 239, 228, 0.38) 0%,
+      rgba(245, 239, 228, 0.18) 45%,
+      rgba(245, 239, 228, 0) 72%
+    );
+
   pointer-events: none;
-  user-select: none;
 
   z-index: 0;
 }
 
-/* небольшой чарм справа от логотипа */
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.mainLogo {
+
+  position: relative;
+
+  z-index: 2;
+
+  margin-bottom: 9vh;
+  width: 200px;
+}
+
+
+/* =========================================================
+   DECORATIVE IMAGES
+========================================================= */
+
+.decoCharm {
+  position: absolute;
+
+  object-fit: contain;
+
+  pointer-events: none;
+  user-select: none;
+
+  z-index: 1;
+
+  filter:
+    drop-shadow(
+      0 8px 12px rgba(51, 36, 31, 0.08)
+    );
+}
+
+
+/* upper right */
+
 .decoCharmOne {
-  width: 105px;
+  width: 175px;
 
   top: 10%;
   right: 8%;
@@ -95,9 +203,11 @@ button {
   transform: rotate(14deg);
 }
 
-/* второй — внизу слева от survey */
+
+/* lower left */
+
 .decoCharmTwo {
-  width: 155px;
+  width: 275px;
 
   bottom: 7%;
   left: -17%;
@@ -105,166 +215,201 @@ button {
   transform: rotate(-18deg);
 }
 
-.shopSetup {
-  min-height: 100vh;
-  width: 100%;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background: #f7ecdd;
-
-  padding: 40px;
-}
-
-.shopSetupCard {
-  width: min(700px, 100%);
-
-  text-align: center;
-}
-
-.setupLogo {
-  width: 300px;
-  height: auto;
-
-  margin-bottom: 50px;
-}
-
-.setupLabel {
-  margin-bottom: 15px;
-
-  font-size: 14px;
-  letter-spacing: 0.18em;
-
-  color: #c98b39;
-}
-
-.shopSetupCard h1 {
-  margin: 0 0 40px;
-
-  font-size: 46px;
-  line-height: 1.1;
-}
-
-.shopButtons {
-  display: grid;
-  gap: 16px;
-}
-
-.shopButtons button {
-  min-height: 85px;
-
-  border: none;
-  border-radius: 18px;
-
-  background: #eedfca;
-
-  font-size: 22px;
-
-  cursor: pointer;
-
-  transition:
-    transform 0.15s ease,
-    background 0.15s ease,
-    box-shadow 0.15s ease;
-}
-
-.shopButtons button:hover {
-  background: #f4d9ae;
-
-  transform: translateY(-2px);
-}
-
-.shopButtons button:active {
-  transform: scale(0.98);
-}
-
-/* SURVEY */
+/* =========================================================
+   SURVEY
+========================================================= */
 
 .survey {
   width: min(760px, 100%);
 
   text-align: center;
+
+  position: relative;
+
+  z-index: 2;
 }
+
+
+/* =========================================================
+   MAIN QUESTION
+========================================================= */
 
 .survey h1 {
   margin: 0 0 45px;
 
   font-size: clamp(44px, 4vw, 68px);
+
   line-height: 1.05;
 
   font-weight: 600;
-}
-.contentSide {
-  position: relative;
-}
 
-.sparkle {
-  position: absolute;
+  color: #33241f;
 
-  color: #d99a43;
-  opacity: 0.45;
-
-  pointer-events: none;
+  letter-spacing: -0.015em;
 }
 
+
+/* =========================================================
+   SUBTITLE
+========================================================= */
 
 .surveySubtitle {
   margin: -22px 0 34px;
 
-  font-size: 16px;
-  letter-spacing: 0.12em;
+  font-size: 15px;
+
+  font-weight: 600;
+
+  letter-spacing: 0.15em;
+
   text-transform: uppercase;
 
-  color: #b77b31;
-  opacity: 0.75;
+  color: #ce6377;
+
+  opacity: 1;
 }
 
-/* ANSWERS */
+
+/* =========================================================
+   SPARKLES
+========================================================= */
+
+.sparkle {
+  position: absolute;
+
+  color: #e98a9a;
+
+  opacity: 0.62;
+
+  pointer-events: none;
+
+  filter:
+    drop-shadow(
+      0 2px 5px rgba(233, 138, 154, 0.2)
+    );
+}
+
+
+/* =========================================================
+   ANSWERS GRID
+========================================================= */
 
 .answers {
   display: grid;
+
   grid-template-columns: 1fr 1fr;
 
   gap: 18px;
 }
 
+
+/* =========================================================
+   ANSWER BUTTON
+========================================================= */
+
 .answers button {
   position: relative;
+
   overflow: hidden;
 
   min-height: 90px;
+
   padding: 20px 28px;
 
-  border: none;
-  border-radius: 2vh;
+  /*
+    Creamy strawberry cards rather than
+    solid pink blocks.
+  */
 
-  background: #eedfca;
-  color: #111;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 248, 246, 0.94) 0%,
+      rgba(250, 231, 233, 0.96) 100%
+    );
+
+  color: #33241f;
+
+  border:
+    1px solid
+    rgba(233, 138, 154, 0.28);
+
+  border-radius: 25px;
 
   font-size: 22px;
+
   font-weight: 500;
 
   cursor: pointer;
 
   display: flex;
+
   align-items: center;
   justify-content: center;
 
+  box-shadow:
+    0 4px 10px rgba(51, 36, 31, 0.025),
+    0 8px 25px rgba(51, 36, 31, 0.045),
+    0 12px 35px rgba(233, 138, 154, 0.06);
+
   transition:
-    background-color 0.2s ease,
-    color 0.2s ease,
-    box-shadow 0.2s ease,
-    transform 0.12s ease;
+    background 0.22s ease,
+    color 0.22s ease,
+    border-color 0.22s ease,
+    box-shadow 0.22s ease,
+    transform 0.15s ease;
 }
+
+
+/* =========================================================
+   BUTTON HOVER
+========================================================= */
+
+.answers button:hover {
+  background:
+    linear-gradient(
+      135deg,
+      #fbeaec 0%,
+      #f3c5ce 100%
+    );
+
+  border-color:
+    rgba(233, 138, 154, 0.48);
+
+  transform:
+    translateY(-2px);
+
+  box-shadow:
+    0 5px 12px rgba(51, 36, 31, 0.03),
+    0 10px 28px rgba(51, 36, 31, 0.05),
+    0 12px 35px rgba(233, 138, 154, 0.14);
+}
+
+
+/* =========================================================
+   TOUCH / CLICK
+========================================================= */
+
+.answers button:active {
+  transform:
+    translateY(0)
+    scale(0.98);
+}
+
+
+/* =========================================================
+   ANSWER ICONS
+========================================================= */
 
 .answerIcon {
   position: absolute;
+
   left: 22px;
   top: 50%;
 
-  transform: translateY(-50%);
+  transform:
+    translateY(-50%);
 
   width: 58px;
   height: 58px;
@@ -279,7 +424,71 @@ button {
 }
 
 
-/* When selected */
+/* =========================================================
+   BUTTON TEXT
+========================================================= */
+
+.buttonText {
+  position: relative;
+
+  z-index: 2;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   LAST / TIKTOK BUTTON
+========================================================= */
+
+.answers button:last-child {
+  grid-column: 1 / 3;
+
+  width:
+    calc((100% - 18px) / 2);
+
+  justify-self: center;
+}
+
+
+/* =========================================================
+   SELECTED BUTTON
+========================================================= */
+
+.answers button.selected {
+  /*
+    This is where the actual brand pink
+    becomes strong.
+  */
+
+  background:
+    linear-gradient(
+      135deg,
+      #f09eac 0%,
+      #e98a9a 45%,
+      #df7488 100%
+    );
+
+  color: #fffaf7;
+
+  border-color:
+    rgba(255, 255, 255, 0.3);
+
+  transform:
+    scale(1.015);
+
+  box-shadow:
+    0 6px 20px rgba(51, 36, 31, 0.06),
+    0 0 18px rgba(233, 138, 154, 0.5),
+    0 0 42px rgba(233, 138, 154, 0.30),
+    0 0 70px rgba(233, 138, 154, 0.16);
+}
+
+
+/* =========================================================
+   SELECTED ICON
+========================================================= */
+
 .answers button.selected .answerIcon {
   filter:
     brightness(0)
@@ -287,25 +496,13 @@ button {
 
   transform:
     translateY(-50%)
-    scale(1.05);
-}
-
-.buttonText {
-  position: relative;
-  z-index: 2;
-
-  text-align: center;
-}
-
-.answers button:last-child {
-  grid-column: 1 / 3;
-
-  width: calc((100% - 18px) / 2);
-  justify-self: center;
+    scale(1.08);
 }
 
 
-/* WHITE BAR */
+/* =========================================================
+   SHINE
+========================================================= */
 
 .shine {
   position: absolute;
@@ -313,12 +510,22 @@ button {
   top: 0;
   left: 0;
 
-  width: 30%;
+  width: 28%;
   height: 100%;
 
-  background: rgba(255, 255, 255, 0.75);
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.15) 25%,
+      rgba(255, 255, 255, 0.72) 50%,
+      rgba(255, 255, 255, 0.15) 75%,
+      rgba(255, 255, 255, 0) 100%
+    );
 
-  transform: translateX(-150%);
+  transform:
+    translateX(-160%)
+    skewX(-15deg);
 
   z-index: 1;
 
@@ -326,52 +533,67 @@ button {
 }
 
 
-/* FINGER DOWN */
-
-.answers button:active {
-  transform: scale(0.98);
-}
-
-
-/* SELECTED */
-
-.answers button.selected {
-  background-color: #ffd88a;
-  color: white;
-
-  box-shadow:
-    0 0 15px rgba(242, 189, 85, 0.8),
-    0 0 35px rgba(242, 189, 85, 0.55),
-    0 0 60px rgba(242, 189, 85, 0.3);
-}
-
-
-/* PLAY AFTER CLICK */
+/* =========================================================
+   SHINE AFTER SELECTION
+========================================================= */
 
 .answers button.selected .shine {
-  animation: shineMove 0.65s ease-in-out forwards;
+  animation:
+    shineMove 0.65s ease-in-out forwards;
 }
 
 
 @keyframes shineMove {
+
   0% {
-    transform: translateX(-150%);
+    transform:
+      translateX(-160%)
+      skewX(-15deg);
   }
 
   100% {
-    transform: translateX(450%);
+    transform:
+      translateX(500%)
+      skewX(-15deg);
   }
 }
 
-.answers button:last-child {
-  grid-column: 1 / 3;
+
+/* =========================================================
+   SMALL SAGE DETAIL
+
+   Sage is intentionally NOT a major UI color.
+   It's only a little contrast against all the pink.
+========================================================= */
+
+.survey::after {
+  content: "";
+
+  display: block;
+
+  width: 44px;
+  height: 4px;
+
+  margin:
+    30px auto 0;
+
+  border-radius: 999px;
+
+  background: #b8c99a;
+
+  opacity: 0.85;
 }
 
-/* LAPTOP / SMALLER WIDTH */
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
 
 @media (max-width: 1000px) {
+
   .app {
-    grid-template-columns: 30% 70%;
+    grid-template-columns:
+      30% 70%;
   }
 
   .contentSide {
@@ -383,7 +605,66 @@ button {
   }
 
   .answers button {
-    font-size: 19px;
     min-height: 80px;
+
+    font-size: 19px;
+
+    border-radius: 21px;
   }
+
+  .answerIcon {
+    width: 50px;
+    height: 50px;
+
+    left: 18px;
+  }
+
+  .contentSide::before {
+    width: 600px;
+    height: 600px;
+  }
+}
+
+@media (max-height: 750px) and (orientation: landscape) {
+  .contentSide {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+
+  .mainLogo {
+    max-height: 130px;
+  }
+
+  .survey h1 {
+    font-size: clamp(28px, 3.5vw, 48px);
+  }
+
+  .surveySubtitle {
+    margin: 8px 0 15px;
+  }
+
+  .answers {
+    gap: 10px;
+  }
+
+  .answers button {
+    padding: 10px 15px;
+    min-height: 55px;
+  }
+}
+
+@media (max-height: 750px) and (orientation: landscape) {
+  .mainLogo {
+    width: auto;
+    height: 110px;
+    max-width: 100%;
+    max-height: 110px;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+}
+
+.answers .answerIcon {
+  position: static;
+  transform: none;
 }

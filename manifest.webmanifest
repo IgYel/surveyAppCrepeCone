@@ -1,0 +1,22 @@
+{
+  "name": "CrepeCone Survey",
+  "short_name": "CrepeCone",
+  "start_url": "/surveyAppCrepeCone/",
+  "scope": "/surveyAppCrepeCone/",
+  "display": "fullscreen",
+  "background_color": "#f5efe4",
+  "theme_color": "#e98a9a",
+  "orientation": "landscape",
+  "icons": [
+    {
+      "src": "/surveyAppCrepeCone/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/surveyAppCrepeCone/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
